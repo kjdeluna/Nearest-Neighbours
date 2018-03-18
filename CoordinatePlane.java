@@ -33,6 +33,14 @@ public class CoordinatePlane extends JPanel{
         g2d.drawLine(MARGIN, this.getHeight() - MARGIN, this.getWidth() - MARGIN, this.getHeight() - MARGIN);
         if(drawable){
             int portion = (int) drawingComponentWidth / max;
+            // Drawing y-axis anchors
+            for(int i = 1; i < max; i++){
+                g2d.drawString(Integer.toString(i), (int) MARGIN / 2, (int) this.getHeight() - MARGIN - (portion * i));
+            }
+            // Drawing x-axis anchors
+            for(int i = 1; i < max; i++){
+                g2d.drawString(Integer.toString(i), (int) (MARGIN + (portion * i)), (int) (this.getHeight() - 5) );
+            }
             System.out.println(portion);
             for(Point point : points){
                 g2d.fillOval((int) (MARGIN + point.getCoordinates().get(0) * portion), (int) (this.getHeight() - MARGIN - point.getCoordinates().get(1) * portion), 5, 5);
