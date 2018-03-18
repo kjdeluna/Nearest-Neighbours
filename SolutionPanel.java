@@ -56,6 +56,7 @@ public class SolutionPanel extends JPanel{
 
         // Initializing and placing coordinate plane
         this.plane = new CoordinatePlane();
+        plane.setBackground(new Color(192,192,192));
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 800;
         c.ipadx = 800;
