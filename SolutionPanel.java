@@ -148,6 +148,7 @@ public class SolutionPanel extends JPanel{
             }
         });
     }
+
     private void putDataToInputClassTable(){
         DefaultTableModel tableModel = (DefaultTableModel) inputClassTable.getModel();
         tableModel.setRowCount(0);
