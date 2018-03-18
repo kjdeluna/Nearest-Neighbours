@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JFileChooser;
 import javax.swing.JViewport;
+import java.util.LinkedList;
 
 public class SolutionPanel extends JPanel{
     private JButton selectTrainingFileButton;
@@ -63,7 +64,6 @@ public class SolutionPanel extends JPanel{
         c.gridx = 0;
         c.gridy = 1;
         c.insets = new Insets(5, 10, 10, 10);
-        plane.setBackground(Color.GREEN);
         this.add(this.plane, c);
 
         // Initializating and placing inputTextArea, inputTextAreaScrollPane
@@ -124,6 +124,7 @@ public class SolutionPanel extends JPanel{
                 if(trainingDataFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
                     System.out.println(trainingDataFileChooser.getSelectedFile());
                     nn.readTrainingFile(trainingDataFileChooser.getSelectedFile().toString());
+                    putDataToInputClassTable();
                 }
             }
         });
@@ -132,9 +133,32 @@ public class SolutionPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(trainingDataFileChooser.getSelectedFile() != null){
+                    nn.readInputFile(inputTextArea.getText());
+                    plane.setDrawable(true);
+                    plane.setPoints(nn.getClassifiedPoints());
+                    plane.repaint();
                 }
             }
         });
+    }
+    private void putDataToInputClassTable(){
+        DefaultTableModel tableModel = (DefaultTableModel) inputClassTable.getModel();
+        tableModel.setRowCount(0);
+        for(Point point : this.nn.getClassifiedPoints()){
+            String[] data = new String[2];
+            data[0] = "(";
+            for(int i = 0; i < point.getCoordinates().size(); i++){
+                data[0] += Double.toString(point.getCoordinates().get(i));
+                if(i != point.getCoordinates().size() - 1){
+                    data[0] += ", ";
+                }
+            }
+            data[0] += ")";
+            data[1] = Integer.toString(point.getClassification()); 
+            tableModel.addRow(data);
+        }
+        this.inputClassTable.setModel(tableModel);
+        tableModel.fireTableDataChanged();
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);

@@ -23,23 +23,24 @@ public class NearestNeighbours{
     public NearestNeighbours(){
         this.points = new LinkedList<Point>();
         // this.readTrainingFile();
-        this.readInputFile();
+        // this.readInputFile();
         // Read input file here
     }
 
-    public void readInputFile(){
+    public void readInputFile(String allText){
         try{
             FileWriter output = new FileWriter(OUTPUT_FILENAME);
             try{
+                String[] lines = allText.split("\n");
                 String[] lineRead;
                 String line;
-                FileReader fr = new FileReader(INPUT_FILENAME);
-                BufferedReader br = new BufferedReader(fr);
+                // FileReader fr = new FileReader(INPUT_FILENAME);
+                // BufferedReader br = new BufferedReader(fr);
                 LinkedList<Double> pointCollector;
                 int i = 0;
-                while((line = br.readLine()) != null){
+                for(int k = 0; k < lines.length; k++){
+                    lineRead = lines[k].split(" ");
                     pointCollector =  new LinkedList<Double>();
-                    lineRead = line.split(" ");
                     for(i = 0; i < lineRead.length; i++){
                         pointCollector.add(Double.parseDouble(lineRead[i]));
                     }
@@ -157,5 +158,9 @@ public class NearestNeighbours{
             return Math.sqrt(result);
         }
         return result;
+    }
+
+    public LinkedList<Point> getClassifiedPoints(){
+        return this.points;
     }
 }
