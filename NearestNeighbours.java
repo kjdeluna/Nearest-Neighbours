@@ -112,7 +112,9 @@ public class NearestNeighbours{
             e.printStackTrace();
         }
     }
-
+    public void clearPoints(){
+        this.points.clear();
+    }
     public void readTrainingFile(String trainingFilename){
         try{
             String[] lineRead;

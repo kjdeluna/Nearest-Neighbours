@@ -57,7 +57,7 @@ public class SolutionPanel extends JPanel{
         // Initializing and placing coordinate plane
         this.plane = new CoordinatePlane();
         plane.setBackground(new Color(192,192,192));
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         c.ipady = 800;
         c.ipadx = 800;
         c.gridwidth = 1;
@@ -69,6 +69,7 @@ public class SolutionPanel extends JPanel{
 
         // Initializating and placing inputTextArea, inputTextAreaScrollPane
         this.inputTextArea = new JTextArea();
+        this.inputTextArea.setText("");
         this.inputTextAreaScrollPane = new JScrollPane(this.inputTextArea);
         this.inputTextAreaScrollPane.getViewport().setScrollMode(JViewport.SIMPLE_SCROLL_MODE);
         c.ipady = 0;
@@ -123,8 +124,11 @@ public class SolutionPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e){
                 if(trainingDataFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION){
-                    System.out.println(trainingDataFileChooser.getSelectedFile());
+                    nn.clearPoints();
                     nn.readTrainingFile(trainingDataFileChooser.getSelectedFile().toString());
+                    plane.setDrawable(true);
+                    plane.setPoints(nn.getClassifiedPoints());
+                    plane.repaint();
                     putDataToInputClassTable();
                 }
             }
@@ -133,12 +137,13 @@ public class SolutionPanel extends JPanel{
         this.classifyInputButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                if(trainingDataFileChooser.getSelectedFile() != null){
+                if(trainingDataFileChooser.getSelectedFile() != null && !inputTextArea.getText().equals("")){
                     nn.readInputFile(inputTextArea.getText());
                     plane.setDrawable(true);
                     plane.setPoints(nn.getClassifiedPoints());
                     plane.repaint();
                     putDataToInputClassTable();
+                    inputTextArea.setText("");
                 }
             }
         });

@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.LinkedList;
+
+// TODO: implement max
 public class CoordinatePlane extends JPanel{
     private final static int MARGIN = 30;
     private static boolean drawable = false;
@@ -15,9 +17,12 @@ public class CoordinatePlane extends JPanel{
     private static Color[] colors = {
         Color.RED,
         Color.BLUE,
+        Color.MAGENTA,
         Color.ORANGE,
+        Color.CYAN,
         Color.GREEN,
-        Color.YELLOW
+        Color.YELLOW,
+        Color.PINK
     };
 
     public CoordinatePlane(){
@@ -43,19 +48,21 @@ public class CoordinatePlane extends JPanel{
         g2d.drawLine(MARGIN, this.getHeight() - MARGIN, this.getWidth() - MARGIN, this.getHeight() - MARGIN);
         if(drawable){
             int portion = (int) drawingComponentWidth / max;
+            for(Point point : points){
+                g2d.setColor(dynamicChangeColor(Integer.toString(point.getClassification())));
+                g2d.fillOval((int) (MARGIN + point.getCoordinates().get(0) * portion), (int) (this.getHeight() - MARGIN - point.getCoordinates().get(1) * portion) - 5, 10, 10);
+            }            
+            g2d.setColor(Color.BLACK);
             // Drawing y-axis anchors
             for(int i = 1; i < max; i++){
-                g2d.drawString(Integer.toString(i), (int) MARGIN / 2, (int) this.getHeight() - MARGIN - (portion * i));
+                g2d.drawLine((int) MARGIN - MARGIN / 4, this.getHeight() - MARGIN - (i * portion) - 4 , MARGIN + MARGIN / 4, this.getHeight() - MARGIN - (i  * portion) - 4);
+                g2d.drawString(Integer.toString(i), (int) MARGIN / 2 - 7, (int) this.getHeight() - MARGIN - (portion * i));
             }
             // Drawing x-axis anchors
             for(int i = 1; i < max; i++){
+                g2d.drawLine((int) MARGIN + (i * portion) + 4, this.getHeight() - MARGIN - MARGIN / 4, (int) MARGIN + (i * portion) + 4, this.getHeight() - MARGIN + MARGIN / 4);
                 g2d.drawString(Integer.toString(i), (int) (MARGIN + (portion * i)), (int) (this.getHeight() - 5) );
             }
-            System.out.println(portion);
-            for(Point point : points){
-                g2d.setColor(dynamicChangeColor(Integer.toString(point.getClassification())));
-                g2d.fillOval((int) (MARGIN + point.getCoordinates().get(0) * portion), (int) (this.getHeight() - MARGIN - point.getCoordinates().get(1) * portion), 10, 10);
-            }            
         }
     }
 
