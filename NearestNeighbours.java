@@ -66,11 +66,6 @@ public class NearestNeighbours{
                     HashMap<String, Integer> classificationCounter = new HashMap<String, Integer>();
                     for(i = 0; i < this.k; i++){
                         output.write("(");
-                        // Store the frequencies of the point
-                        // if(!classificationCounter.containsKey(this.points.get(i).getClassification())){
-                        //     classificationCounter.put(Integer.toString(this.points.get(i).getClassification()), 1);
-                        //     max = 1;
-                        // } 
                         if(classificationCounter.containsKey(Integer.toString(this.points.get(i).getClassification()))){
                             classificationCounter.put(Integer.toString(this.points.get(i).getClassification()), classificationCounter.get((Integer.toString(this.points.get(i).getClassification()))) + 1);
                             if(classificationCounter.get(Integer.toString(this.points.get(i).getClassification())) > max){
@@ -101,6 +96,7 @@ public class NearestNeighbours{
                     // Print the classification
                     for(String dummy : classificationCounter.keySet()){
                         if(classificationCounter.get(dummy) == max){
+                            this.points.add(new Point(pointCollector, Integer.parseInt(dummy)));
                             output.write(dummy + "\n");
                             break;
                         }

@@ -137,6 +137,7 @@ public class SolutionPanel extends JPanel{
                     plane.setDrawable(true);
                     plane.setPoints(nn.getClassifiedPoints());
                     plane.repaint();
+                    putDataToInputClassTable();
                 }
             }
         });

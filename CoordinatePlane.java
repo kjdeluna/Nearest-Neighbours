@@ -35,7 +35,7 @@ public class CoordinatePlane extends JPanel{
             int portion = (int) drawingComponentWidth / max;
             System.out.println(portion);
             for(Point point : points){
-                g2d.fillOval((int) (this.getWidth() - MARGIN - point.getCoordinates().get(0) * portion), (int) (this.getHeight() - MARGIN - point.getCoordinates().get(1) * portion), 5, 5);
+                g2d.fillOval((int) (MARGIN + point.getCoordinates().get(0) * portion), (int) (this.getHeight() - MARGIN - point.getCoordinates().get(1) * portion), 5, 5);
             }            
         }
     }
