@@ -1,0 +1,3 @@
+Nearest neighbours of (0.0, 0.0): 
+Class of (0.0, 0.0): Nearest neighbours of (3.0, 6.0): 
+Class of (3.0, 6.0): 
