@@ -22,14 +22,11 @@ public class NearestNeighbours{
 
     public NearestNeighbours(){
         this.points = new LinkedList<Point>();
-        // this.readTrainingFile();
-        // this.readInputFile();
-        // Read input file here
     }
 
     public void readInputFile(String allText){
         try{
-            FileWriter output = new FileWriter(OUTPUT_FILENAME);
+            FileWriter output = new FileWriter(OUTPUT_FILENAME, true);
             try{
                 String[] lines = allText.split("\n");
                 String[] lineRead;
